@@ -26,7 +26,7 @@ const Login = () => {
             password:enterredPassword
         }
 
-        axios.post('http://localhost:8080/api/v1/registration',loginPayload)
+        axios.post('http://localhost:8080/api/v1/login',loginPayload)
             .then((response)=>{
                 setPost(response.data)
             })
@@ -37,6 +37,10 @@ const Login = () => {
         console.log(loginPayload)
     
 
+    }
+    const warningStyle = {
+        color:'red',
+        fontSize:13
     }
     
     return (
@@ -49,7 +53,7 @@ const Login = () => {
                     <input type="password" value={enterredPassword} placeholder="password" onChange = {passwordChangeHandler} />
                     <button type="submit">Login</button>
                     <p class="message">Not registered? <a href="#">Create an account</a></p>
-                    <p>{post}</p>
+                    <p style={warningStyle} class="message">{post}</p>
                 </form>
             </div>
         </div>

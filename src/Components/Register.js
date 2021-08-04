@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-
+import axios from 'axios';
 
 
 
@@ -12,6 +12,8 @@ const Register = () => {
     const [enterredEmail,setEmail] = useState('');
     const [enterredPassword,setPassword] = useState('');
     const [selectedImage,setImage] = useState('');
+
+    const[post,setPost] = useState(null);
 
     const firstNameChangeHandler = (event) => {
         setFirstName(event.target.value);
@@ -31,29 +33,82 @@ const Register = () => {
     }
 
     const imageUploadHandler = (event) => {
-        setImage(event.target.value);
+        setImage(event.target.files[0]);
     }
 
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
-        const registrationPayload = {
-            firstName:enterredFirstName,
-            lastName: enterredLastName,
-            email: enterredEmail,
-            password: enterredPassword,
-            image: selectedImage
-        }
+        var form = new FormData();
+/*
+        form.append('user', JSON.stringify({
+            'firstName':enterredFirstName,
+            'lastName': enterredLastName,
+            'email': enterredEmail,
+            'password': enterredPassword
 
-        console.log(registrationPayload)
+        }))
+*/
+        form.append('user', new Blob([JSON.stringify({
+            'firstName':enterredFirstName,
+            'lastName': enterredLastName,
+            'email': enterredEmail,
+            'password': enterredPassword
 
+        })], {
+            type: "application/json"
+        }));
+
+
+        form.append('file',selectedImage);
+
+        /*
+        
+            let registerPayload = {
+        
+            user: {
+
+            'firstName':enterredFirstName,
+            'lastName': enterredLastName,
+            'email': enterredEmail,
+            'password': enterredPassword,
+            },
+            file: selectedImage
+            
+            }
+            
+            /*
+        const requestOptions = {
+            method: 'POST',
+            headers:{'Content-Type': 'multipart/form-data; boundary=--------------------------298418179258656539956601' },
+            body:registerPayload
+        };
+        fetch('http://localhost:8080/api/v1/registration',requestOptions)
+        .then((response)=>{
+            setPost(response.data)
+        })
+
+        */
+        axios.post('http://localhost:8080/api/v1/registration',form)
+            .then((response)=>{
+                setPost(response.data)
+            })
+        
+
+        console.log(form)
+
+    }
+
+    const warningStyle = {
+        color:'red',
+        fontSize:13
     }
 
 
     return (
         <div class="login-page">
             <div class="form">
-                <form class="register-form" onSubmit = {onSubmitHandler} >
+                <form class="register-form" onSubmit = {onSubmitHandler} enctype="multipart/form-data">
                     <input onChange = {firstNameChangeHandler} type="text" placeholder="first name" required />
                     <input onChange = {lastNameChangeHandler} type="text" placeholder="last name" required />
                     <input onChange = {emailChangeHandler} type="text" placeholder="email" required />
@@ -61,6 +116,7 @@ const Register = () => {
                     <input onChange = {imageUploadHandler}  type="file" id="img" name="img" accept="image/*" required/>
                     <button>create</button>
                     <p class="message">Already registered? <a href="#">Sign In</a></p>
+                    <p style={warningStyle} class="message">{post}</p>
                 </form>
             </div>
         </div>
