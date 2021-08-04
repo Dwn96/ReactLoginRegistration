@@ -29,6 +29,8 @@ const Login = () => {
             password:enterredPassword
         }
 
+        localStorage.setItem('email',loginPayload.email);
+
         axios.post('http://localhost:8080/api/v1/login',loginPayload)
             .then((response)=>{
                 setPost(response.data)
