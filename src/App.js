@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import Login from './Components/Login';
+import Profile from './Components/Profile';
 import Register from './Components/Register';
 
 
@@ -10,14 +11,21 @@ function App() {
   return (
     <Router>
 
-      <Route path="/login">
-        <Login></Login>
-      </Route>
+      <Switch>
+        <Route path="/login">
+          <Login></Login>
+        </Route>
 
-      <Route path="/register">
-        <Register></Register>
-      </Route>
+        <Route path="/register">
+          <Register></Register>
+        </Route>
 
+        <Route path="/profile">
+          <Profile></Profile>
+        </Route>
+
+        <Redirect from="/" to="/login" exact />
+      </Switch>
     </Router>
   );
 }
