@@ -70,7 +70,7 @@ const Register = () => {
         axios.post('http://localhost:8080/api/v1/registration',form)
             .then((response)=>{
                 setPost(response.data)
-                if(response.data == 'Success'){
+                if(response.data === 'Success'){
                     history.push('/login')
                 }
             })
