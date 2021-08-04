@@ -33,7 +33,7 @@ const Profile = () => {
             <div id="main-card">
         <div class="cover-photo"></div>
         <div class="photo">
-        <img className='www' src={`data:image/jpeg;base64,${binaryData}`}/>
+        <img className='www' src={`data:image/jpeg;base64,${binaryData}`} alt="user"/>
         </div>
         <div class="content">
             <h2 class="name">Dan Njeru</h2>
