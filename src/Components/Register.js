@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 
 
 
 const Register = () => {
+    const history = useHistory();
 
     const [enterredFirstName, setFirstName] = useState('');
     const [enterredLastName, setLastName] = useState('');
@@ -63,36 +64,19 @@ const Register = () => {
 
         form.append('file',selectedImage);
 
-        /*
-        
-            let registerPayload = {
-        
-            user: {
 
-            'firstName':enterredFirstName,
-            'lastName': enterredLastName,
-            'email': enterredEmail,
-            'password': enterredPassword,
-            },
-            file: selectedImage
-            
-            }
-            
-            /*
-        const requestOptions = {
-            method: 'POST',
-            headers:{'Content-Type': 'multipart/form-data; boundary=--------------------------298418179258656539956601' },
-            body:registerPayload
-        };
-        fetch('http://localhost:8080/api/v1/registration',requestOptions)
-        .then((response)=>{
-            setPost(response.data)
-        })
-
-        */
+        localStorage.setItem('imageName',selectedImage.name);
+       
         axios.post('http://localhost:8080/api/v1/registration',form)
             .then((response)=>{
                 setPost(response.data)
+                if(response.data == 'Success'){
+                    history.push('/login')
+                }
+            })
+            .catch((err)=>{
+                console.log(err)
+                setPost(err[0])
             })
         
 

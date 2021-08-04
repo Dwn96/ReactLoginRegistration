@@ -2,8 +2,10 @@ import React,{useState} from 'react'
 import './Login.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
+    const history = useHistory();
 
     const [enterredEmail,setEnterredEmail] = useState("");
     const [enterredPassword,setEnterredPassword] = useState("");
@@ -30,6 +32,10 @@ const Login = () => {
         axios.post('http://localhost:8080/api/v1/login',loginPayload)
             .then((response)=>{
                 setPost(response.data)
+                if(response.data === "Success"){
+                    console.log('Logged in')
+                    history.push("/profile")
+                }
             })
 
         setEnterredPassword('');
