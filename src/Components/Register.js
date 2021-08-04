@@ -58,6 +58,7 @@ const Register = () => {
                     <input onChange = {lastNameChangeHandler} type="text" placeholder="last name" required />
                     <input onChange = {emailChangeHandler} type="text" placeholder="email" required />
                     <input onChange = {passwordChangeHandler} type="password" placeholder="password" required />
+                    <input onChange = {imageUploadHandler}  type="file" id="img" name="img" accept="image/*" required/>
                     <button>create</button>
                     <p class="message">Already registered? <a href="#">Sign In</a></p>
                 </form>
