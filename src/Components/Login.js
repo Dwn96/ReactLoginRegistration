@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import './Login.css';
+import axios from 'axios';
 
 const Login = () => {
 
     const [enterredEmail,setEnterredEmail] = useState("");
     const [enterredPassword,setEnterredPassword] = useState("");
+
+    const[post,setPost] = useState(null);
 
     const emailChangeHandler = (event) =>{
         setEnterredEmail(event.target.value);
@@ -22,6 +25,11 @@ const Login = () => {
             email:enterredEmail,
             password:enterredPassword
         }
+
+        axios.post('http://localhost:8080/api/v1/registration',loginPayload)
+            .then((response)=>{
+                setPost(response.data)
+            })
 
         setEnterredPassword('');
         setEnterredEmail('');
@@ -41,6 +49,7 @@ const Login = () => {
                     <input type="password" value={enterredPassword} placeholder="password" onChange = {passwordChangeHandler} />
                     <button type="submit">Login</button>
                     <p class="message">Not registered? <a href="#">Create an account</a></p>
+                    <p>{post}</p>
                 </form>
             </div>
         </div>
