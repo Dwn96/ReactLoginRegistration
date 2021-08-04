@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -115,7 +116,7 @@ const Register = () => {
                     <input onChange = {passwordChangeHandler} type="password" placeholder="password" required />
                     <input onChange = {imageUploadHandler}  type="file" id="img" name="img" accept="image/*" required/>
                     <button>create</button>
-                    <p class="message">Already registered? <a href="#">Sign In</a></p>
+                    <p class="message">Already registered? <Link to="/login">Sign In</Link></p>
                     <p style={warningStyle} class="message">{post}</p>
                 </form>
             </div>

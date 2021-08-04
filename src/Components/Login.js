@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import './Login.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -52,7 +53,7 @@ const Login = () => {
                     <input type="text" value={enterredEmail} placeholder="email" onChange = {emailChangeHandler}/>
                     <input type="password" value={enterredPassword} placeholder="password" onChange = {passwordChangeHandler} />
                     <button type="submit">Login</button>
-                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                    <p class="message">Not registered? <Link to ="/register"> Create an account</Link></p>
                     <p style={warningStyle} class="message">{post}</p>
                 </form>
             </div>
