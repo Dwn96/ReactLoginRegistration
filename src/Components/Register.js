@@ -53,7 +53,7 @@ const Register = () => {
     return (
         <div class="login-page">
             <div class="form">
-                <form class="register-form"  >
+                <form class="register-form" onSubmit = {onSubmitHandler} >
                     <input onChange = {firstNameChangeHandler} type="text" placeholder="first name" required />
                     <input onChange = {lastNameChangeHandler} type="text" placeholder="last name" required />
                     <input onChange = {emailChangeHandler} type="text" placeholder="email" required />
